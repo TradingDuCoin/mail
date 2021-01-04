@@ -19,6 +19,9 @@ func (m *Message) WriteTo(w io.Writer) (int64, error) {
 }
 
 func (w *messageWriter) writeMessage(m *Message) {
+	if _, ok := m.header["DKIM-Signature"]; ok {
+		w.writeString("DKIM-Signature: " + m.header["DKIM-Signature"][0] + "\r\n")
+	}
 	if _, ok := m.header["MIME-Version"]; !ok {
 		w.writeString("MIME-Version: 1.0\r\n")
 	}
