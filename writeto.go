@@ -251,7 +251,7 @@ func (w *messageWriter) writeLine(s string, charsLeft int) string {
 func (w *messageWriter) writeHeaders(h map[string][]string) {
 	if w.depth == 0 {
 		for k, v := range h {
-			if k != "Bcc" {
+			if k != "Bcc" && k != "DKIM-Signature" {
 				w.writeHeader(k, v...)
 			}
 		}
